@@ -1,0 +1,42 @@
+{
+  "name": "helm-dev",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "username": "vscode"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+      "version": "latest",
+      "helm": "latest",
+      "minikube": "none"
+    }
+  },
+  "remoteUser": "vscode",
+  "initializeCommand": "mkdir -p $HOME/.kube $HOME/.config/opencode $HOME/.local/share/opencode",
+  "mounts": [
+    "source=vscode-kube-data,target=/home/vscode/.kube,type=volume",
+    "source=helm-dev-nvim-data,target=/home/vscode/.local/share/nvim,type=volume",
+    "source=opencode-config,target=/home/vscode/.config/opencode,type=volume",
+    "source=opencode-data,target=/home/vscode/.local/share/opencode,type=volume"
+  ],
+  "containerEnv": {
+    "EDITOR": "nvim",
+    "KUBECONFIG": "/home/vscode/.kube/config"
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "redhat.vscode-yaml"
+      ]
+    }
+  },
+  "runArgs": ["--security-opt=label=disable"]
+}
