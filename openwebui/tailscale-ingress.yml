@@ -1,0 +1,16 @@
+# open-webui/tailscale-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: open-webui-tailscale
+  namespace: open-webui
+spec:
+  ingressClassName: tailscale
+  defaultBackend:
+    service:
+      name: open-webui     # confirm with: kubectl get svc -n open-webui
+      port:
+        number: 80         # the Service port, not the container's 8080
+  tls:
+    - hosts:
+        - open-webui       # becomes open-webui.<your-tailnet>.ts.net
