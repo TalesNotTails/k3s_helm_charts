@@ -4,6 +4,12 @@ set -euo pipefail
 # su resets PATH, so make sure nvm-installed node/npm are found.
 export PATH="/usr/local/share/nvm/current/bin:$PATH"
 
+cat << 'EOF' >> /home/vscode/.zshrc
+if [ "$TERM" = "xterm-ghostty" ] && ! infocmp xterm-ghostty >/dev/null 2>&1; then
+  export TERM=xterm-256color
+fi
+EOF
+
 # --- Architecture detection (works on x64 and ARM/Apple Silicon) ---
 DEB_ARCH="$(dpkg --print-architecture)"            # amd64 | arm64
 case "$DEB_ARCH" in
