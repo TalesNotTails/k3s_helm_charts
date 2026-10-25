@@ -13,5 +13,4 @@ helm upgrade --install tailscale-operator tailscale/tailscale-operator \
   --namespace tailscale \
   --create-namespace \
   --values values.yml \
-  --atomic \
-  --timeout 5m
+  --rollback-on-failure --timeout 10m
