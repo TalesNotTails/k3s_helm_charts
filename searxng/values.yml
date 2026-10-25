@@ -1,0 +1,6 @@
+image:
+  repository: searxng/searxng
+  tag: latest   # pin to a specific tag/digest once it works
+searxngSecret:
+  name: searxng-secret
+  key: secret-key

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: searxng-settings
+data:
+  settings.yml: |
+    use_default_settings: true
+    server:
+      limiter: false          # internal-only, no valkey/redis needed
+      image_proxy: false
+    search:
+      formats:
+        - html
+        - json                # required for Open WebUI
