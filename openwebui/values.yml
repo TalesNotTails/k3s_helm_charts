@@ -1,0 +1,11 @@
+service:
+  type: ClusterIP
+ingress:
+  enabled: false
+ollama:
+  enabled: false
+ollamaUrls: ["http://ollama-tailnet:11434"]
+persistence:
+  enabled: false
+pipelines:
+  enabled: false
