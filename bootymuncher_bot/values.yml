@@ -1,0 +1,44 @@
+# Image configuration
+image:
+  repository: docker.io/talesnottails/bootymuncher_bot
+  tag: latest   # pin to a specific tag once it works
+  pullPolicy: IfNotPresent
+
+# Discord Bot Configuration
+bot:
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+
+# PostgreSQL Configuration
+postgres:
+  enabled: true
+  image:
+    repository: postgres
+    tag: "16-alpine"
+  storage:
+    size: "1Gi"
+    storageClass: ""
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+
+secret:
+  name: bootymuncher-bot-secret
+
+secrets:
+  APP_ID: ""
+  DISCORD_TOKEN: ""
+  PUBLIC_KEY: ""
+  GUILD_ID: ""
+  MC_HOSTNAME: ""
+  POSTGRES_PASSWORD: "changeme"

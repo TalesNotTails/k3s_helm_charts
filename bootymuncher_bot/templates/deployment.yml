@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bootymuncher-bot
+  labels:
+    app: bootymuncher-bot
+spec:
+  replicas: {{ .Values.bot.replicaCount }}
+  selector:
+    matchLabels:
+      app: bootymuncher-bot
+  template:
+    metadata:
+      labels:
+        app: bootymuncher-bot
+    spec:
+      containers:
+        - name: bootymuncher-bot
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.secret.name }}
+          resources:
+            limits:
+              cpu: {{ .Values.bot.resources.limits.cpu | quote }}
+              memory: {{ .Values.bot.resources.limits.memory | quote }}
+            requests:
+              cpu: {{ .Values.bot.resources.requests.cpu | quote }}
+              memory: {{ .Values.bot.resources.requests.memory | quote }}
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "node -e \"process.exit(0)\""
+            initialDelaySeconds: 10
+            periodSeconds: 30
